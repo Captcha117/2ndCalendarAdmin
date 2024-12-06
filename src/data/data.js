@@ -1,0 +1,43 @@
+var gameList = [
+    { 'GameId': '91395C56BF184270BE1555BEFD700E2D', 'Initial': '6', 'Name': '64.0', 'Alias': '', 'NameJP': '' },
+    { 'GameId': '2B98C3E1CFA44C2BA2D67AA6F4FB5DAA', 'Initial': 'A', 'Name': 'A Dance of Fire and Ice', 'Alias': '冰与火之舞', 'NameJP': '' },
+    { 'GameId': '0BBA75D0DC7A4734AD137D77BE91702F', 'Initial': 'A', 'Name': 'Airtone', 'Alias': '天空之音', 'NameJP': '' },
+    { 'GameId': '1AE13C033DF241F4A24011368720012E', 'Initial': 'A', 'Name': 'Arcaea', 'Alias': '韵律源点', 'NameJP': 'アーケア', 'pic': 'Arcaea.jpg', 'tag': '移动' },
+    { 'GameId': '0153F4EF09274A988C8CCF0EAC47CA3D', 'Initial': 'A', 'Name': 'Arcaoid', 'Alias': '', 'NameJP': '' },
+    { 'GameId': '8FD8261D04B541A29A5D6F53BF7D6CDD', 'Initial': 'M', 'Name': 'Muse Dash', 'Alias': '缪斯快跑', 'NameJP': '', 'tag': 'PC,移动' },
+    { 'GameId': '16BED6B1081148AABA3413B6FF930F41', 'Initial': 'A', 'Name': 'Audioshield', 'Alias': '音盾', 'NameJP': '' },
+    { 'GameId': '9F8C80B6D36E46BFA61D62161FF9D3A4', 'Initial': 'A', 'Name': 'Audiosurf', 'Alias': '音乐战机', 'NameJP': '' },
+    { 'GameId': '4195ACBC3A904A699C810F6AB132E9A0', 'Initial': 'A', 'Name': 'Audition Dance Battle Online', 'Alias': '劲舞团', 'NameJP': '' },
+    { 'GameId': 'EB44D3A74E2D410F9CAFC1D7E2FBFD33', 'Initial': 'B', 'Name': 'BanG Dream! Girls Band Party!', 'Alias': '梦想协奏曲！少女乐团派对！', 'NameJP': 'バンドリ！ガールズバンドパーティ！' },
+    { 'GameId': '1D8B1257D37A423CBF237E0356735E15', 'Initial': 'B', 'Name': 'Beat Carnival', 'Alias': '', 'NameJP': 'ビートカーニバル' },
+    { 'GameId': '1E1F9A2FE9294511B9C2A5AE1B93BE5C', 'Initial': 'B', 'Name': 'Beat Evolution', 'Alias': '节奏大爆炸', 'NameJP': '' },
+    { 'GameId': 'B572865A4FB64C2ABA0AAA525322AD50', 'Initial': 'B', 'Name': 'Beat Racer', 'Alias': '电音超跑', 'NameJP': '' },
+    { 'GameId': '1090B235C36E4C6D9BAA5955E6761954', 'Initial': 'B', 'Name': 'Beat Saber', 'Alias': '节奏光剑', 'NameJP': '' },
+    { 'GameId': 'D9E205A4D56A4F5C9E68F8974775741D', 'Initial': 'B', 'Name': 'Beatmania IIDX', 'Alias': '狂热节拍', 'NameJP': '' },
+    { 'GameId': 'E7421CFF3EE946D39D3A982681B4B8E6', 'Initial': 'B', 'Name': 'BeatStage', 'Alias': '', 'NameJP': '' },
+    { 'GameId': '859746BE8F7A484EAC2B29CF02CC1C47', 'Initial': 'B', 'Name': 'BeatStream', 'Alias': '', 'NameJP': '' },
+    { 'GameId': '4043BA8419D544FA80E41C701653C7B1', 'Initial': 'B', 'Name': 'Bishi Bashi Channel', 'Alias': '', 'NameJP': '' },
+    { 'GameId': '6C9280EC66DF4272AC97F870FB5F67FC', 'Initial': 'B', 'Name': 'BMS', 'Alias': '', 'NameJP': '' },
+    { 'GameId': 'E8FB95B069AC44639160FA000F191F4A', 'Initial': 'B', 'Name': 'B-Project', 'Alias': 'B计划：无敌危险', 'NameJP': 'B-PROJECT ~無敵＊デンジャラス~' },
+    { 'GameId': '263A7656B9D94AF494D1D666C221C494', 'Initial': 'C', 'Name': 'CHUNITHM', 'Alias': '', 'NameJP': '' },
+    { 'GameId': 'C5646A67867346388EEE86AFAB0AAB11', 'Initial': 'C', 'Name': 'CIRCLINK', 'Alias': '', 'NameJP': '' },
+    { 'GameId': '05137374969842EF93BCF8E5FDE23EA1', 'Initial': 'C', 'Name': 'Cross × Beats', 'Alias': '', 'NameJP': '' },
+    { 'GameId': 'C68B9BE54D1A402ABFFB59C2E02B6BC7', 'Initial': 'C', 'Name': 'Crypt of the Necro Dancer', 'Alias': '节奏地牢', 'NameJP': '' },
+    { 'GameId': '9059062CCA42419FB60D262CD294837A', 'Initial': 'C', 'Name': 'Cytoid', 'Alias': '', 'NameJP': '' },
+    { 'GameId': 'FCCAF8C901A043F29B5E679DA611CB6C', 'Initial': 'C', 'Name': 'Cytus', 'Alias': '音乐世界', 'NameJP': '' },
+    { 'GameId': 'F3EDC602669440748B6B79DB329B0D88', 'Initial': 'C', 'Name': 'Cytus II', 'Alias': '音乐世界 2', 'NameJP': '' },
+    { 'GameId': '8848989294B649B4AA7A292100895E50', 'Initial': 'D', 'Name': 'Dance Central', 'Alias': '舞蹈中心', 'NameJP': '' },
+    { 'GameId': '0362B6464391454ABC89E24CD1F81299', 'Initial': 'D', 'Name': 'Dance Dance Revolution', 'Alias': '热舞革命', 'NameJP': '' },
+    { 'GameId': '6672F88ED8214CDF99766DFCE98A8B88', 'Initial': 'D', 'Name': 'Dance Evolution', 'Alias': '舞蹈进化', 'NameJP': '' },
+    { 'GameId': '65099250EE1441E6B0CFBFC206111E83', 'Initial': 'D', 'Name': 'Dance ManiaX', 'Alias': '', 'NameJP': '' },
+    { 'GameId': '771BCBF8BC4A4A9BB04F74FC21E55667', 'Initial': 'D', 'Name': 'DanceRail', 'Alias': '', 'NameJP': '' },
+    { 'GameId': 'BA27DFE09F964059ADC84A992856AE06', 'Initial': 'D', 'Name': 'DanceRush Stardom', 'Alias': '舞律炫动', 'NameJP': '' },
+    { 'GameId': 'E530D4AD335548E293AF4D3181097E04', 'Initial': 'D', 'Name': 'DANZ BASE', 'Alias': '舞力特区', 'NameJP': '' },
+    { 'GameId': '648AB36F7A8C4EC4A9109CC3E8FC9E95', 'Initial': 'D', 'Name': 'Deemo', 'Alias': '古树旋律', 'NameJP': '' },
+    { 'GameId': '54938191AA46474BB42A770D079F3EF0', 'Initial': 'D', 'Name': 'Diva Destiny', 'Alias': '命运歌姬', 'NameJP': '' },
+
+];
+
+export {
+    gameList
+};
