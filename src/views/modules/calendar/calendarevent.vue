@@ -14,14 +14,8 @@
       </el-form-item>
       <el-form-item>
         <el-button @click="getDataList()">查询</el-button>
+        <el-button type="primary" @click="addOrUpdateHandle()">新增</el-button>
         <el-button
-          v-if="isAuth('calendar:calendarevent:save')"
-          type="primary"
-          @click="addOrUpdateHandle()"
-          >新增</el-button
-        >
-        <el-button
-          v-if="isAuth('calendar:calendarevent:delete')"
           type="danger"
           @click="deleteHandle()"
           :disabled="dataListSelections.length <= 0"
@@ -34,7 +28,7 @@
       border
       v-loading="dataListLoading"
       @selection-change="selectionChangeHandle"
-      style="width: 100%;"
+      style="width: 100%"
     >
       <el-table-column
         type="selection"
@@ -43,18 +37,25 @@
         width="50"
       >
       </el-table-column>
-      <el-table-column
+      <!-- <el-table-column
         prop="id"
         header-align="center"
         align="center"
         label="活动id"
       >
-      </el-table-column>
-      <el-table-column
+      </el-table-column> -->
+      <!-- <el-table-column
         prop="gameId"
         header-align="center"
         align="center"
         label="游戏id"
+      >
+      </el-table-column> -->
+      <el-table-column
+        prop="gameName"
+        header-align="center"
+        align="center"
+        label="游戏名"
       >
       </el-table-column>
       <el-table-column
@@ -69,6 +70,7 @@
         header-align="center"
         align="center"
         label="开始时间"
+        width="100"
       >
       </el-table-column>
       <el-table-column
@@ -76,28 +78,32 @@
         header-align="center"
         align="center"
         label="结束时间"
+        width="100"
       >
       </el-table-column>
       <el-table-column
-        prop="platformCode"
+        prop="platformName"
         header-align="center"
         align="center"
-        label="平台code"
+        label="平台"
       >
       </el-table-column>
       <el-table-column
-        prop="categoryId"
+        prop="categoryName"
         header-align="center"
         align="center"
-        label="类目id"
+        label="类目"
       >
       </el-table-column>
       <el-table-column
         prop="imgUrl"
         header-align="center"
         align="center"
-        label="图片地址"
+        label="图片"
       >
+        <template slot-scope="{ row }">
+          <el-image :src="row.imgUrl" height="50px"></el-image>
+        </template>
       </el-table-column>
       <el-table-column
         prop="detailUrl"
@@ -168,7 +174,7 @@ export default {
   data() {
     return {
       dataForm: {
-        key: ""
+        key: "",
       },
       dataList: [],
       pageIndex: 1,
@@ -176,11 +182,11 @@ export default {
       totalPage: 0,
       dataListLoading: false,
       dataListSelections: [],
-      addOrUpdateVisible: false
+      addOrUpdateVisible: false,
     };
   },
   components: {
-    AddOrUpdate
+    AddOrUpdate,
   },
   activated() {
     this.getDataList();
@@ -190,13 +196,13 @@ export default {
     getDataList() {
       this.dataListLoading = true;
       this.$http({
-        url: this.$http.adornUrl("/calendar/event/list"),
+        url: this.$http.adornUrl("/calendar/event/eventPageList"),
         method: "post",
         data: this.$http.adornParams({
           page: this.pageIndex,
           limit: this.pageSize,
-          key: this.dataForm.key
-        })
+          key: this.dataForm.key,
+        }),
       }).then(({ data }) => {
         if (data && data.code === 0) {
           this.dataList = data.page.list;
@@ -234,7 +240,7 @@ export default {
     deleteHandle(id) {
       var ids = id
         ? [id]
-        : this.dataListSelections.map(item => {
+        : this.dataListSelections.map((item) => {
             return item.id;
           });
       this.$confirm(
@@ -243,29 +249,29 @@ export default {
         {
           confirmButtonText: "确定",
           cancelButtonText: "取消",
-          type: "warning"
+          type: "warning",
         }
       ).then(() => {
         this.$http({
-          url: this.$http.adornUrl("/calendar/calendarevent/delete"),
+          url: this.$http.adornUrl("/calendar//delete"),
           method: "post",
-          data: this.$http.adornData(ids, false)
+          data: this.$http.adornData(ids, false),
         }).then(({ data }) => {
           if (data && data.code === 0) {
             this.$message({
               message: "操作成功",
               type: "success",
-              duration: 1500,
+              duration: 100,
               onClose: () => {
                 this.getDataList();
-              }
+              },
             });
           } else {
             this.$message.error(data.msg);
           }
         });
       });
-    }
-  }
+    },
+  },
 };
 </script>

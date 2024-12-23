@@ -60,7 +60,7 @@
           this.$refs['dataForm'].resetFields()
           if (this.dataForm.id) {
             this.$http({
-              url: this.$http.adornUrl(`/calendar/calendarversion/info/${this.dataForm.id}`),
+              url: this.$http.adornUrl(`/calendar/version/info/${this.dataForm.id}`),
               method: 'get',
               params: this.$http.adornParams()
             }).then(({data}) => {
@@ -79,7 +79,7 @@
         this.$refs['dataForm'].validate((valid) => {
           if (valid) {
             this.$http({
-              url: this.$http.adornUrl(`/calendar/calendarversion/${!this.dataForm.id ? 'save' : 'update'}`),
+              url: this.$http.adornUrl(`/calendar/version/${!this.dataForm.id ? 'save' : 'update'}`),
               method: 'post',
               data: this.$http.adornData({
                 'id': this.dataForm.id || undefined,
@@ -93,7 +93,7 @@
                 this.$message({
                   message: '操作成功',
                   type: 'success',
-                  duration: 1500,
+                  duration: 100,
                   onClose: () => {
                     this.visible = false
                     this.$emit('refreshDataList')
