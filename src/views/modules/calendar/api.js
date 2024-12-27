@@ -26,6 +26,12 @@ export default {
       method: "get",
     });
   },
+  getRewardList(gameId) {
+    return request({
+      url: `/calendar/reward/getRewardListByGameId?gameId=` + gameId,
+      method: "get",
+    });
+  },
   saveEvent(data) {
     return request({
       url: `/calendar/event/save`,

@@ -106,6 +106,16 @@
         </template>
       </el-table-column>
       <el-table-column
+        prop="rewardList"
+        header-align="center"
+        align="center"
+        label="奖励"
+      >
+        <template slot-scope="{ row }">
+          {{ (row.rewardList || []).map((x) => `${x.name}(${x.num})`).join(", ") }}
+        </template>
+      </el-table-column>
+      <el-table-column
         prop="detailUrl"
         header-align="center"
         align="center"

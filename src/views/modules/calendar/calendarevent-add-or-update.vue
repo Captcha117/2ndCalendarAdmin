@@ -52,7 +52,7 @@
       </el-form-item>
     </el-form> -->
     <el-form ref="dataForm" :model="dataForm" label-width="80px">
-      <el-form-item label="游戏">
+      <el-form-item label="游戏" prop="gameId">
         <el-select v-model="dataForm.gameId" @change="gameChange">
           <el-option
             v-for="g in gameList"
@@ -62,7 +62,7 @@
           ></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="活动名称">
+      <el-form-item label="活动名称" prop="name">
         <el-input v-model="dataForm.name"></el-input>
       </el-form-item>
       <el-form-item label="活动时间">
@@ -74,8 +74,8 @@
         ></el-date-picker>
       </el-form-item>
 
-      <el-form-item label="平台">
-        <el-select v-model="dataForm.platformCode">
+      <el-form-item label="平台" prop="platformCode">
+        <el-select v-model="dataForm.platformCode" clearable>
           <el-option
             v-for="p in platformList"
             :key="p.id"
@@ -84,8 +84,8 @@
           ></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="类目">
-        <el-select v-model="dataForm.categoryId">
+      <el-form-item label="类目" prop="categoryId">
+        <el-select v-model="dataForm.categoryId" clearable>
           <el-option
             v-for="p in categoryList"
             :key="p.id"
@@ -94,7 +94,7 @@
           ></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="图片地址">
+      <el-form-item label="图片地址" prop="imgUrl">
         <el-input
           v-model="dataForm.imgUrl"
           type="textarea"
@@ -102,13 +102,46 @@
         ></el-input>
         <el-image :src="dataForm.imgUrl" width="300px"></el-image>
       </el-form-item>
-      <el-form-item label="详情地址">
+
+      <el-form-item label="奖励" prop="rewardList">
+        <el-button
+          v-if="!dataForm.rewardList.length"
+          type="primary"
+          @click="addReward()"
+          >+</el-button
+        >
+        <el-form
+          inline
+          v-for="(item, index) in dataForm.rewardList"
+          :key="index"
+        >
+          <el-form-item>
+            <el-select type="text" v-model="item.code">
+              <el-option
+                v-for="r in rewardList"
+                :key="r.code"
+                :value="r.code"
+                :label="r.name"
+              ></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item>
+            <el-input-number type="text" v-model="item.num" />
+          </el-form-item>
+          <el-form-item>
+            <el-button type="primary" @click="addReward()">+</el-button>
+            <el-button type="danger" @click="delReward(index)">-</el-button>
+          </el-form-item>
+        </el-form>
+      </el-form-item>
+
+      <el-form-item label="详情地址" prop="detailUrl">
         <el-input v-model="dataForm.detailUrl"></el-input>
       </el-form-item>
-      <el-form-item label="活动地址">
+      <el-form-item label="活动地址" prop="eventUrl">
         <el-input v-model="dataForm.eventUrl"></el-input>
       </el-form-item>
-      <el-form-item label="提示">
+      <el-form-item label="提示" prop="tip">
         <el-input v-model="dataForm.tip"></el-input>
       </el-form-item>
     </el-form>
@@ -129,6 +162,7 @@ export default {
       gameList: [],
       platformList: [],
       categoryList: [],
+      rewardList: [],
       dataForm: {
         id: 0,
         gameId: "",
@@ -138,6 +172,7 @@ export default {
         platformCode: "",
         categoryId: "",
         imgUrl: "",
+        rewardList: [],
         detailUrl: "",
         eventUrl: "",
         tip: "",
@@ -177,6 +212,7 @@ export default {
       this.visible = true;
       this.$nextTick(() => {
         this.$refs["dataForm"].resetFields();
+        this.dataForm.date = [];
         if (this.dataForm.id) {
           this.$http({
             url: this.$http.adornUrl(
@@ -191,7 +227,7 @@ export default {
                 this.dataForm.startTime,
                 this.dataForm.endTime,
               ];
-              this.gameChange(this.dataForm.gameId);
+              this.gameChange(this.dataForm.gameId, false);
               // this.dataForm.gameId = data.calendarEvent.gameId;
               // this.dataForm.name = data.calendarEvent.name;
               // this.dataForm.startTime = data.calendarEvent.startTime;
@@ -217,17 +253,11 @@ export default {
             ),
             method: "post",
             data: this.$http.adornData({
+              ...this.dataForm,
+
               id: this.dataForm.id || undefined,
-              gameId: this.dataForm.gameId,
-              name: this.dataForm.name,
               startTime: this.dataForm.date[0],
               endTime: this.dataForm.date[1],
-              platformCode: this.dataForm.platformCode,
-              categoryId: this.dataForm.categoryId,
-              imgUrl: this.dataForm.imgUrl,
-              detailUrl: this.dataForm.detailUrl,
-              eventUrl: this.dataForm.eventUrl,
-              tip: this.dataForm.tip,
             }),
           }).then(({ data }) => {
             if (data && data.code === 0) {
@@ -257,13 +287,25 @@ export default {
         this.platformList = res.data || [];
       });
     },
-    gameChange(val) {
-      this.dataForm.categoryId = null;
+    gameChange(val, clear = true) {
+      if (clear) {
+        this.dataForm.categoryId = null;
+        this.dataForm.rewardList = [];
+      }
       if (val) {
         api.getCategoryList(val).then((res) => {
           this.categoryList = res.data || [];
         });
+        api.getRewardList(val).then((res) => {
+          this.rewardList = res.data || [];
+        });
       }
+    },
+    addReward() {
+      this.dataForm.rewardList.push({ code: "", num: 0 });
+    },
+    delReward(i) {
+      this.dataForm.rewardList.splice(i, 1);
     },
   },
 };
