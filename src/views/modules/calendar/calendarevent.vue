@@ -112,7 +112,7 @@
         label="奖励"
       >
         <template slot-scope="{ row }">
-          {{ (row.rewardList || []).map((x) => `${x.name}(${x.num})`).join(", ") }}
+          {{ (row.rewardList || []).map((x) => `${x.rewardName}(${x.rewardNum})`).join(", ") }}
         </template>
       </el-table-column>
       <el-table-column
@@ -129,6 +129,13 @@
         label="活动地址"
       >
       </el-table-column>
+      <!-- <el-table-column
+        prop="description"
+        header-align="center"
+        align="center"
+        label="活动描述"
+      >
+      </el-table-column> -->
       <el-table-column
         prop="tip"
         header-align="center"

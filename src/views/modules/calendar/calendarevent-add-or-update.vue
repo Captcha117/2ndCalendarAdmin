@@ -3,6 +3,7 @@
     :title="!dataForm.id ? '新增' : '修改'"
     :close-on-click-modal="false"
     :visible.sync="visible"
+    width="800px"
   >
     <!-- <el-form
       :model="dataForm"
@@ -116,7 +117,7 @@
           :key="index"
         >
           <el-form-item>
-            <el-select type="text" v-model="item.code">
+            <el-select type="text" v-model="item.rewardCode">
               <el-option
                 v-for="r in rewardList"
                 :key="r.code"
@@ -126,7 +127,7 @@
             </el-select>
           </el-form-item>
           <el-form-item>
-            <el-input-number type="text" v-model="item.num" />
+            <el-input-number type="text" v-model="item.rewardNum" />
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="addReward()">+</el-button>
@@ -141,8 +142,15 @@
       <el-form-item label="活动地址" prop="eventUrl">
         <el-input v-model="dataForm.eventUrl"></el-input>
       </el-form-item>
+      <el-form-item label="活动描述" prop="description">
+        <el-input
+          v-model="dataForm.description"
+          type="textarea"
+          :rows="5"
+        ></el-input>
+      </el-form-item>
       <el-form-item label="提示" prop="tip">
-        <el-input v-model="dataForm.tip"></el-input>
+        <el-input v-model="dataForm.tip" type="textarea" :rows="5"></el-input>
       </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
@@ -167,6 +175,7 @@ export default {
         id: 0,
         gameId: "",
         name: "",
+        date: [],
         startTime: "",
         endTime: "",
         platformCode: "",
@@ -175,6 +184,7 @@ export default {
         rewardList: [],
         detailUrl: "",
         eventUrl: "",
+        description: "",
         tip: "",
       },
       dataRule: {
