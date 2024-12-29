@@ -59,6 +59,13 @@
       >
       </el-table-column>
       <el-table-column
+        prop="color"
+        header-align="center"
+        align="center"
+        label="颜色"
+      >
+      </el-table-column>
+      <el-table-column
         fixed="right"
         header-align="center"
         align="center"
