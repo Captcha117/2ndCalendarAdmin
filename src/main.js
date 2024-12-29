@@ -12,12 +12,6 @@ import { isAuth } from '@/utils'
 import cloneDeep from 'lodash/cloneDeep'
 import ElementUI from 'element-ui';
 
-import Popover from "./components/popover/";
-import Card from "./components/card/"
-
-Vue.use(Popover)
-Vue.use(Card)
-
 Vue.use(VueCookie)
 Vue.config.productionTip = false
 Vue.use(ElementUI);
