@@ -222,7 +222,7 @@ export default {
       this.visible = true;
       this.$nextTick(() => {
         this.$refs["dataForm"].resetFields();
-        this.dataForm.date = [];
+        this.$set(this.dataForm, "date", []);
         if (this.dataForm.id) {
           this.$http({
             url: this.$http.adornUrl(
@@ -233,10 +233,10 @@ export default {
           }).then(({ data }) => {
             if (data && data.code === 0) {
               this.dataForm = { ...data.calendarEvent };
-              this.dataForm.date = [
+              this.$set(this.dataForm, "date", [
                 this.dataForm.startTime,
                 this.dataForm.endTime,
-              ];
+              ]);
               this.gameChange(this.dataForm.gameId, false);
               // this.dataForm.gameId = data.calendarEvent.gameId;
               // this.dataForm.name = data.calendarEvent.name;
