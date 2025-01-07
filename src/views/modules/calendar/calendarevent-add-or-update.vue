@@ -217,7 +217,7 @@ export default {
     this.getPlatformList();
   },
   methods: {
-    init(id) {
+    init(id, isCopy) {
       this.dataForm.id = id || 0;
       this.visible = true;
       this.$nextTick(() => {
@@ -233,6 +233,9 @@ export default {
           }).then(({ data }) => {
             if (data && data.code === 0) {
               this.dataForm = { ...data.calendarEvent };
+              if (isCopy) {
+                this.dataForm.id = 0;
+              }
               this.$set(this.dataForm, "date", [
                 this.dataForm.startTime,
                 this.dataForm.endTime,

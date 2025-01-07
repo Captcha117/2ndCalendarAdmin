@@ -112,7 +112,11 @@
         label="奖励"
       >
         <template slot-scope="{ row }">
-          {{ (row.rewardList || []).map((x) => `${x.rewardName}(${x.rewardNum})`).join(", ") }}
+          {{
+            (row.rewardList || [])
+              .map((x) => `${x.rewardName}(${x.rewardNum})`)
+              .join(", ")
+          }}
         </template>
       </el-table-column>
       <el-table-column
@@ -156,6 +160,9 @@
             size="small"
             @click="addOrUpdateHandle(scope.row.id)"
             >修改</el-button
+          >
+          <el-button type="text" size="small" @click="copyHandle(scope.row.id)"
+            >复制</el-button
           >
           <el-button
             type="text"
@@ -251,6 +258,13 @@ export default {
       this.addOrUpdateVisible = true;
       this.$nextTick(() => {
         this.$refs.addOrUpdate.init(id);
+      });
+    },
+    // 复制
+    copyHandle(id) {
+      this.addOrUpdateVisible = true;
+      this.$nextTick(() => {
+        this.$refs.addOrUpdate.init(id, true);
       });
     },
     // 删除
