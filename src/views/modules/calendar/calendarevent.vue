@@ -5,12 +5,25 @@
       :model="dataForm"
       @keyup.enter.native="getDataList()"
     >
-      <el-form-item>
-        <el-input
-          v-model="dataForm.key"
-          placeholder="参数名"
-          clearable
-        ></el-input>
+      <el-form-item label="游戏">
+        <el-select v-model="dataForm.gameId" @change="gameChange" clearable>
+          <el-option
+            v-for="g in gameList"
+            :key="g.id"
+            :label="g.name"
+            :value="g.id"
+          ></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="类目" prop="categoryId">
+        <el-select v-model="dataForm.categoryId" clearable>
+          <el-option
+            v-for="p in categoryList"
+            :key="p.id"
+            :label="p.name"
+            :value="p.id"
+          ></el-option>
+        </el-select>
       </el-form-item>
       <el-form-item>
         <el-button @click="getDataList()">查询</el-button>
@@ -194,11 +207,16 @@
 
 <script>
 import AddOrUpdate from "./calendarevent-add-or-update";
+import api from "./api";
 export default {
   data() {
     return {
+      gameList: [],
+      categoryList: [],
+
       dataForm: {
-        key: "",
+        gameId: "",
+        categoryId: "",
       },
       dataList: [],
       pageIndex: 1,
@@ -215,7 +233,26 @@ export default {
   activated() {
     this.getDataList();
   },
+  mounted() {
+    this.getGameList();
+  },
   methods: {
+    getGameList() {
+      api.getGameList().then((res) => {
+        this.gameList = res.data || [];
+      });
+    },
+    gameChange(val, clear = true) {
+      if (clear) {
+        this.dataForm.categoryId = null;
+      }
+      if (val) {
+        api.getCategoryList(val).then((res) => {
+          this.categoryList = res.data || [];
+        });
+      }
+    },
+
     // 获取数据列表
     getDataList() {
       this.dataListLoading = true;
@@ -225,7 +262,7 @@ export default {
         data: this.$http.adornParams({
           page: this.pageIndex,
           limit: this.pageSize,
-          key: this.dataForm.key,
+          ...this.dataForm,
         }),
       }).then(({ data }) => {
         if (data && data.code === 0) {
@@ -284,7 +321,7 @@ export default {
         }
       ).then(() => {
         this.$http({
-          url: this.$http.adornUrl("/calendar//delete"),
+          url: this.$http.adornUrl("/calendar/delete"),
           method: "post",
           data: this.$http.adornData(ids, false),
         }).then(({ data }) => {
