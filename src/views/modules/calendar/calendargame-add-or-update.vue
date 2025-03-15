@@ -17,8 +17,22 @@
       <el-form-item label="游戏code" prop="code">
         <el-input v-model="dataForm.code" placeholder="游戏code"></el-input>
       </el-form-item>
+      <el-form-item label="icon" prop="iconUrl">
+        <el-input
+          v-model="dataForm.iconUrl"
+          type="textarea"
+          :rows="5"
+        ></el-input>
+        <el-image :src="dataForm.iconUrl" width="300px"></el-image>
+      </el-form-item>
       <el-form-item label="颜色" prop="color">
         <el-input v-model="dataForm.color" placeholder="颜色"></el-input>
+      </el-form-item>
+      <el-form-item label="排序" prop="sort">
+        <el-input-number
+          v-model="dataForm.sort"
+          placeholder="排序"
+        ></el-input-number>
       </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
@@ -37,7 +51,9 @@ export default {
         id: 0,
         name: "",
         code: "",
+        iconUrl: "",
         color: "",
+        sort: 1,
       },
       dataRule: {
         name: [
@@ -62,9 +78,7 @@ export default {
             params: this.$http.adornParams(),
           }).then(({ data }) => {
             if (data && data.code === 0) {
-              this.dataForm.name = data.calendarGame.name;
-              this.dataForm.code = data.calendarGame.code;
-              this.dataForm.color = data.calendarGame.color;
+              this.dataForm = { ...data.calendarGame };
             }
           });
         }
@@ -84,6 +98,7 @@ export default {
               name: this.dataForm.name,
               code: this.dataForm.code,
               color: this.dataForm.color,
+              sort: this.dataForm.sort,
             }),
           }).then(({ data }) => {
             if (data && data.code === 0) {

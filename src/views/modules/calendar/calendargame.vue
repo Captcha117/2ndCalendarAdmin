@@ -59,10 +59,31 @@
       >
       </el-table-column>
       <el-table-column
+        prop="iconUrl"
+        header-align="center"
+        align="center"
+        label="图片"
+      >
+        <template slot-scope="{ row }">
+          <el-image
+            v-if="row.iconUrl"
+            :src="row.iconUrl"
+            height="50px"
+          ></el-image>
+        </template>
+      </el-table-column>
+      <el-table-column
         prop="color"
         header-align="center"
         align="center"
         label="颜色"
+      >
+      </el-table-column>
+      <el-table-column
+        prop="sort"
+        header-align="center"
+        align="center"
+        label="排序"
       >
       </el-table-column>
       <el-table-column
