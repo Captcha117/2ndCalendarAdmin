@@ -115,7 +115,11 @@
         label="图片"
       >
         <template slot-scope="{ row }">
-          <el-image :src="row.imgUrl" height="50px"></el-image>
+          <el-image
+            v-if="row.imgUrl"
+            :src="row.imgUrl"
+            height="50px"
+          ></el-image>
         </template>
       </el-table-column>
       <el-table-column

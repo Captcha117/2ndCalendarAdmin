@@ -73,6 +73,34 @@
           value-format="yyyy-MM-dd HH:mm:ss"
           :default-time="['04:00:00', '03:59:59']"
         ></el-date-picker>
+        <div v-if="dataForm.date.length">
+          <div>
+            开始小时
+            <el-button-group>
+              <el-button
+                @click="setHour(0, i)"
+                v-for="i in [4, 10, 11, 12, 14, 16, 17, 18, 23]"
+                type="mini"
+                :key="'start' + i"
+              >
+                {{ i }}
+              </el-button>
+            </el-button-group>
+          </div>
+          <div>
+            结束小时
+            <el-button-group>
+              <el-button
+                @click="setHour(1, i)"
+                v-for="i in [4, 10, 11, 12, 14, 16, 17, 18, 23]"
+                type="mini"
+                :key="'end' + i"
+              >
+                {{ i }}
+              </el-button>
+            </el-button-group>
+          </div>
+        </div>
       </el-form-item>
 
       <el-form-item label="平台" prop="platformCode">
@@ -162,7 +190,7 @@
 
 <script>
 import api from "./api";
-
+import dayjs from "dayjs";
 export default {
   data() {
     return {
@@ -319,6 +347,15 @@ export default {
     },
     delReward(i) {
       this.dataForm.rewardList.splice(i, 1);
+    },
+    setHour(index, newHour) {
+      const dateObj = new Date(this.dataForm.date[index]);
+      dateObj.setHours(newHour, dateObj.getMinutes(), dateObj.getSeconds());
+      this.$set(
+        this.dataForm.date,
+        index,
+        dayjs(dateObj).format("YYYY-MM-DD HH:mm:ss")
+      );
     },
   },
 };
