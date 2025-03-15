@@ -3,8 +3,8 @@
     <div class="site-content__wrapper">
       <div class="site-content">
         <div class="brand-info">
-          <h2 class="brand-info__text">second-calendar</h2>
-          <p class="brand-info__intro">second-calendar</p>
+          <h2 class="brand-info__text">second-calendar-admin</h2>
+          <!-- <p class="brand-info__intro">second-calendar-admin</p> -->
         </div>
         <div class="login-main">
           <h3 class="login-title">管理员登录</h3>

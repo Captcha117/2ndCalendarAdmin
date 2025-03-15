@@ -8,7 +8,7 @@ export default {
     // 侧边栏, 布局皮肤, light(浅色) / dark(黑色)
     sidebarLayoutSkin: 'dark',
     // 侧边栏, 折叠状态
-    sidebarFold: false,
+    sidebarFold: localStorage.getItem('sidebarFold') === "true",
     // 侧边栏, 菜单
     menuList: [],
     menuActiveName: '',
@@ -29,6 +29,7 @@ export default {
       state.sidebarLayoutSkin = skin
     },
     updateSidebarFold (state, fold) {
+      localStorage.setItem('sidebarFold', fold)
       state.sidebarFold = fold
     },
     updateMenuList (state, list) {
