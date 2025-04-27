@@ -123,22 +123,27 @@
           ></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="图片地址" prop="imgUrl">
-        <el-input
-          v-model="dataForm.imgUrl"
-          type="textarea"
-          :rows="5"
-        ></el-input>
-        <el-image :src="dataForm.imgUrl" width="300px"></el-image>
+      <el-form-item label="图片地址" prop="imgUrlList">
+        <el-button type="primary" @click="addImg()">+</el-button>
+        <el-form inline v-for="(img, i) in dataForm.imgUrlList">
+          <el-form-item>
+            <el-input
+              v-model="dataForm.imgUrlList[i]"
+              type="textarea"
+              :rows="10"
+            ></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-image :src="dataForm.imgUrlList[i]" width="300px"></el-image>
+          </el-form-item>
+          <el-form-item>
+            <el-button type="danger" @click="delImg(i)">-</el-button>
+          </el-form-item>
+        </el-form>
       </el-form-item>
 
       <el-form-item label="奖励" prop="rewardList">
-        <el-button
-          v-if="!dataForm.rewardList.length"
-          type="primary"
-          @click="addReward()"
-          >+</el-button
-        >
+        <el-button type="primary" @click="addReward()">+</el-button>
         <el-form
           inline
           v-for="(item, index) in dataForm.rewardList"
@@ -158,7 +163,6 @@
             <el-input-number type="text" v-model="item.rewardNum" />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="addReward()">+</el-button>
             <el-button type="danger" @click="delReward(index)">-</el-button>
           </el-form-item>
         </el-form>
@@ -208,7 +212,7 @@ export default {
         endTime: "",
         platformCode: "",
         categoryId: "",
-        imgUrl: "",
+        imgUrlList: [""],
         rewardList: [],
         detailUrl: "",
         eventUrl: "",
@@ -260,7 +264,10 @@ export default {
             params: this.$http.adornParams(),
           }).then(({ data }) => {
             if (data && data.code === 0) {
-              this.dataForm = { ...data.calendarEvent };
+              this.dataForm = {
+                ...data.calendarEvent,
+                imgUrlList: (data.calendarEvent.imgUrl || "").split(";"),
+              };
               if (isCopy) {
                 this.dataForm.id = 0;
               }
@@ -295,6 +302,7 @@ export default {
             method: "post",
             data: this.$http.adornData({
               ...this.dataForm,
+              imgUrl: this.dataForm.imgUrlList.join(";"),
 
               id: this.dataForm.id || undefined,
               startTime: this.dataForm.date[0],
@@ -341,6 +349,12 @@ export default {
           this.rewardList = res.data || [];
         });
       }
+    },
+    addImg() {
+      this.dataForm.imgUrlList.push("");
+    },
+    delImg(i) {
+      this.dataForm.imgUrlList.splice(i, 1);
     },
     addReward() {
       this.dataForm.rewardList.push({ code: "", num: 0 });

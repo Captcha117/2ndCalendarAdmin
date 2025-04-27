@@ -117,9 +117,10 @@
         <template slot-scope="{ row }">
           <el-image
             v-if="row.imgUrl"
-            :src="row.imgUrl"
+            :src="(row.imgUrl || '').split(';')[0]"
             height="50px"
           ></el-image>
+          ({{ (row.imgUrl || "").split(";").length }})
         </template>
       </el-table-column>
       <el-table-column
