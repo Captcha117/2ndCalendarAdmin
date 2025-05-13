@@ -17,13 +17,13 @@
       <el-form-item label="游戏code" prop="code">
         <el-input v-model="dataForm.code" placeholder="游戏code"></el-input>
       </el-form-item>
-      <el-form-item label="icon" prop="iconUrl">
+      <el-form-item label="图标" prop="icon">
         <el-input
-          v-model="dataForm.iconUrl"
+          v-model="dataForm.icon"
           type="textarea"
           :rows="5"
         ></el-input>
-        <el-image :src="dataForm.iconUrl" width="300px"></el-image>
+        <el-image :src="dataForm.icon" width="300px"></el-image>
       </el-form-item>
       <el-form-item label="颜色" prop="color">
         <el-input v-model="dataForm.color" placeholder="颜色"></el-input>
@@ -51,7 +51,7 @@ export default {
         id: 0,
         name: "",
         code: "",
-        iconUrl: "",
+        icon: "",
         color: "",
         sort: 1,
       },
@@ -97,6 +97,7 @@ export default {
               id: this.dataForm.id || undefined,
               name: this.dataForm.name,
               code: this.dataForm.code,
+              icon: this.dataForm.icon,
               color: this.dataForm.color,
               sort: this.dataForm.sort,
             }),

@@ -59,17 +59,13 @@
       >
       </el-table-column>
       <el-table-column
-        prop="iconUrl"
+        prop="icon"
         header-align="center"
         align="center"
-        label="图片"
+        label="图标"
       >
         <template slot-scope="{ row }">
-          <el-image
-            v-if="row.iconUrl"
-            :src="row.iconUrl"
-            height="50px"
-          ></el-image>
+          <el-image v-if="row.icon" :src="row.icon" height="50px"></el-image>
         </template>
       </el-table-column>
       <el-table-column
@@ -78,6 +74,11 @@
         align="center"
         label="颜色"
       >
+        <template slot-scope="{ row }">
+          <div style="height: 20px" :style="{ backgroundColor: row.color }">
+            {{ row.color }}
+          </div>
+        </template>
       </el-table-column>
       <el-table-column
         prop="sort"
